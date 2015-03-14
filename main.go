@@ -1,30 +1,15 @@
 package main
 
 import (
-	"CloudServer/controller"
 	"fmt"
+	"github.com/bmizerany/pat"
+	"github.com/yuhaya/CloudServer/controller"
+	"log"
 	"net/http"
 )
 
-var Route map[string]
-
-type Mux struct {
-}
-
-func (this *Mux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-
-	switch r.URL.Path {
-	case "/":
-		Demo(w, r)
-	case "/user":
-
-	default:
-		NotFound(w, r)
-	}
-}
-
-func Demo(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello myroute!")
+func Root(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "Hello World!")
 }
 
 func NotFound(w http.ResponseWriter, r *http.Request) {
@@ -32,6 +17,13 @@ func NotFound(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	mux := &Mux{}
-	http.ListenAndServe(":9000", mux)
+	m := pat.New()
+	m.Get("/", http.HandlerFunc(Root))
+	//数据查询示例
+	m.Get("/sql", http.HandlerFunc(controller.SqlDemo))
+
+	err := http.ListenAndServe(":9007", m)
+	if err != nil {
+		log.Fatal("ListenAndServe: ", err)
+	}
 }
