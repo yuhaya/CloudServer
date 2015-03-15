@@ -22,7 +22,7 @@ func main() {
 	//数据查询示例
 	m.Get("/sql", http.HandlerFunc(controller.SqlDemo))
 
-	err := http.ListenAndServe(":9007", m)
+	err := http.ListenAndServe(":9000", m)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
