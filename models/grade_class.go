@@ -1,8 +1,8 @@
 package models
 
 import (
-	"fmt"
-	"github.com/astaxie/beego/orm"
+//	"fmt"
+//	"github.com/astaxie/beego/orm"
 )
 
 type GradeClass struct {

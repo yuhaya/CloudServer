@@ -1,6 +1,6 @@
 package models
 
-import "github.com/astaxie/beego/orm"
+//import "github.com/astaxie/beego/orm"
 
 type ClassTeacher struct {
 	Id          uint64 `orm:"fk;auto"`

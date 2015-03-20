@@ -7,13 +7,13 @@
 package controller
 
 import (
-	"fmt"
-	"github.com/yuhaya/CloudServer/model"
+	//	"fmt"
+	//	"github.com/yuhaya/CloudServer/models"
 	"net/http"
 )
 
 func SqlDemo(w http.ResponseWriter, r *http.Request) {
 
-	data := model.Query("SELECT * FROM ittr_cards")
-	fmt.Fprintf(w, "\n%#v\n", data)
+	//	data := models.Query("SELECT * FROM ittr_cards")
+	//	fmt.Fprintf(w, "\n%#v\n", data)
 }

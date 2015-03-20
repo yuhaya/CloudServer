@@ -1,9 +1,9 @@
 package models
 
 import (
-	"LocalServer/tool"
-	"fmt"
-	"github.com/astaxie/beego/orm"
+//	"LocalServer/tool"
+//	"fmt"
+//	"github.com/astaxie/beego/orm"
 )
 
 type Devices struct {

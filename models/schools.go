@@ -1,11 +1,11 @@
 package models
 
 import (
-	"github.com/astaxie/beego/orm"
+	//	"github.com/astaxie/beego/orm"
 	"time"
 
-	"fmt"
-	"strconv"
+	//	"fmt"
+	//	"strconv"
 )
 
 type Schools struct {
