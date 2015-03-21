@@ -1,15 +1,18 @@
 package models
 
 import (
-	//	"github.com/astaxie/beego/orm"
 	"time"
 )
 
 type Attendances struct {
-	Id         uint64    `orm:"fk;auto"`
-	Card       string    `orm:"size(50)"`
-	Time       time.Time `orm:"type(datetime)"`
-	Type       int8      `orm:"default(0)"`
-	SchoolGuid string    `orm:"size(50)"`
-	Auto       int8      `orm:"default(1)"`
+	Id         uint64    `sql:"AUTO_INCREMENT" gorm:"primary_key"`
+	Card       string    `sql:"type:varchar(50);not null"`
+	Time       time.Time `sql:"type:datetime;not null"`
+	Type       int8      `sql:"default:0;not null"`
+	SchoolGuid string    `sql:"type:varchar(50);not null"`
+	Auto       int8      `sql:"default:1;not null"`
+}
+
+func (this Attendances) TableName() string {
+	return "ittr_attendances"
 }

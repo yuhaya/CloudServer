@@ -1,11 +1,13 @@
 package models
 
-//import "github.com/astaxie/beego/orm"
-
 type ClassTeacher struct {
-	Id          uint64 `orm:"fk;auto"`
-	ClassGuid   string `orm:"size(50)"`
-	TeacherGuid string `orm:"size(50)"`
-	Adviser     int8   `orm:"default(0)"`
-	SchoolGuid  string `orm:"size(50)"`
+	Id          uint64 `sql:"AUTO_INCREMENT;not null" gorm:"primary_key"`
+	ClassGuid   string `sql:"type:varchar(50);not null"`
+	TeacherGuid string `sql:"type:varchar(50);not null"`
+	Adviser     int8   `sql:"default:0;not null"`
+	SchoolGuid  string `sql:"type:varchar(50);not null"`
+}
+
+func (this ClassTeacher) TableName() string {
+	return "ittr_class_teacher"
 }

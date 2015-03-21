@@ -1,9 +1,13 @@
 package models
 
 type FamilyRelation struct {
-	Id         uint64 `orm:"fk;auto"`
-	UserGuid   string `orm:"size(50)"`
-	StuGuid    string `orm:"size(50)"`
-	Relation   string `orm:"size(50)"`
-	SchoolGuid string `orm:"size(50)"`
+	Id         uint64 `sql:"AUTO_INCREMENT;not null" gorm:"primary_key"`
+	UserGuid   string `sql:"type:varchar(50);not null"`
+	StuGuid    string `sql:"type:varchar(50);not null"`
+	Relation   string `sql:"type:varchar(50);not null"`
+	SchoolGuid string `sql:"type:varchar(50);not null"`
+}
+
+func (this FamilyRelation) TableName() string {
+	return "ittr_family_relation"
 }

@@ -1,13 +1,12 @@
 package models
 
-import (
-//	"fmt"
-//	"github.com/astaxie/beego/orm"
-)
-
 type GradeClass struct {
-	Id         uint64 `orm:"fk;auto"`
-	GradeGuid  string `orm:"size(50)"`
-	ClassGuid  string `orm:"size(50)"`
-	SchoolGuid string `orm:"size(50)"`
+	Id         uint64 `sql:"AUTO_INCREMENT;not null" gorm:"primary_key"`
+	GradeGuid  string `sql:"type:varchar(50);not null"`
+	ClassGuid  string `sql:"type:varchar(50);not null"`
+	SchoolGuid string `sql:"type:varchar(50);not null"`
+}
+
+func (this GradeClass) TableName() string {
+	return "ittr_grade_class"
 }

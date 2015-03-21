@@ -1,18 +1,13 @@
 package models
 
-import (
-//	"LocalServer/tool"
-//	"fmt"
-//	"github.com/astaxie/beego/orm"
-//	"strconv"
-//	"strings"
-//	"time"
-)
-
 type Families struct {
-	Id         uint64 `orm:"fk;auto"`
-	Name       string `orm:"size(50)"`
-	Guid       string `orm:"unique;size(50)"`
-	FirstGuid  string `orm:"size(50)"`
-	SchoolGuid string `orm:"size(50)"`
+	Id         uint64 `sql:"AUTO_INCREMENT;not null" gorm:"primary_key"`
+	Name       string `sql:"type:varchar(50);not null"`
+	Guid       string `sql:"unique;type:varchar(50);not null"`
+	FirstGuid  string `sql:"type:varchar(50);not null"`
+	SchoolGuid string `sql:"type:varchar(50);not null"`
+}
+
+func (this Families) TableName() string {
+	return "ittr_families"
 }

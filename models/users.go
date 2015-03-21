@@ -1,20 +1,23 @@
 package models
 
 import (
-	//	"github.com/astaxie/beego/orm"
 	"time"
 )
 
 type Users struct {
-	Id         uint64    `orm:"fk;auto"`
-	Guid       string    `orm:"unique;size(50)"`
-	Phone      string    `orm:"size(20);null"`
-	Realname   string    `orm:"size(10);null"`
-	Password   string    `orm:"size(50)"`
-	Spell      string    `orm:"size(10);null"`
-	Gender     int8      `orm:"default(1)"`
-	IdCard     string    `orm:"size(20);null"`
-	Picture    string    `orm:"size(100);null"`
-	SchoolGuid string    `orm:"size(50)"`
-	CreateTime time.Time `orm:"type(datetime) form:"ContractDate,2006-01-02 00:00:00"`
+	Id         uint64    `sql:"AUTO_INCREMENT;not null" gorm:"primary_key"`
+	Guid       string    `sql:"unique;type:varchar(50);not null"`
+	Phone      string    `sql:"type:varchar(20);null"`
+	Realname   string    `sql:"type:varchar(10);null"`
+	Password   string    `sql:"type:varchar(50);not null"`
+	Spell      string    `sql:"type:varchar(10);null"`
+	Gender     int8      `sql:"default:1;not null"`
+	IdCard     string    `sql:"type:varchar(20);null"`
+	Picture    string    `sql:"type:varchar(100);null"`
+	SchoolGuid string    `sql:"type:varchar(50);not null"`
+	CreateTime time.Time `sql:"type:datetime;not null"`
+}
+
+func (this Users) TableName() string {
+	return "ittr_users"
 }
