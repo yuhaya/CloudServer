@@ -13,42 +13,48 @@ import (
 
 func Root(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hello World!")
-	CreatTables()
+	//	CreatTables()
 }
 
 func NotFound(w http.ResponseWriter, r *http.Request) {
-
+	fmt.Fprint(w, "请求资源未发现!")
 }
 
 func main() {
 	m := pat.New()
 	m.Get("/", http.HandlerFunc(Root))
 	//数据查询示例
-	m.Get("/user", http.HandlerFunc(Dispense(&controller.User{}, "Hello")))
+	m.Get("/user", http.HandlerFunc(Dispense(&controller.User{}, "Hello", m)))
+	m.Post("/user/create", http.HandlerFunc(Dispense(&controller.User{}, "Create", m)))
 
-	err := http.ListenAndServe(":9006", m)
+	err := http.ListenAndServe(":9014", m)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
 }
 
-func Dispense(ct controller.ControllerInterface, ac string) func(w http.ResponseWriter, r *http.Request) {
+func Dispense(ct controller.ControllerInterface, ac string, router *pat.PatternServeMux) func(w http.ResponseWriter, r *http.Request) {
 
 	t := reflect.TypeOf(ct)
 	v := reflect.ValueOf(ct)
 	ac_name := "Action" + ac
 	method := v.MethodByName(ac_name)
 
-	if !method.IsValid() {
-		panic(ac_name + " method not exit")
-	}
-
-	ct_name := t.Elem().Name()
+	appController := t.Elem()
+	ct_name := appController.Name()
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		ct.Before(w, r, ac_name, ct_name)
-		args := make([]reflect.Value, 0)
-		v.MethodByName(ac_name).Call(args)
+
+		if method.IsValid() {
+
+			ct.Init(w, r, ac_name, ct_name, ct, router)
+			args := make([]reflect.Value, 0)
+			v.MethodByName(ac_name).Call(args)
+			ct.End()
+		} else {
+
+			NotFound(w, r)
+		}
 	}
 }
 
